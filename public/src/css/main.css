@@ -1,0 +1,14 @@
+
+
+.centered{
+    text-align: center;
+    vertical-align: middle;
+}
+.info-box.fail{
+	border:1px solid #ff6b6a;
+	background-color: #e53935;
+	color:white;
+	text-align:center;
+	height: 50px;
+	padding-top: 12px;
+}
