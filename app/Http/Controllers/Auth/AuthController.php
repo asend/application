@@ -7,6 +7,9 @@ use Validator;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
+use Illuminate\Http\Request;
+
+use Illuminate\Support\Facades\Input;
 
 class AuthController extends Controller
 {
@@ -49,7 +52,8 @@ class AuthController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'name' => 'required|max:255',
+            'firstname' => 'required|max:255',
+            'lastname' => 'required|max:255',
             'email' => 'required|email|max:255|unique:users',
             'password' => 'required|min:6|confirmed',
         ]);
@@ -64,9 +68,24 @@ class AuthController extends Controller
     protected function create(array $data)
     {
         return User::create([
-            'name' => $data['name'],
+            'firstname' => $data['firstname'],
+            'lastname' => $data['lastname'],
+            'phone' => $data['phone'],
             'email' => $data['email'],
+            'localite_id' => $data['localite_id'],
+            'role_id' => $data['role_id'],
             'password' => bcrypt($data['password']),
         ]);
     }
+
+    /*public function register(Request $request){
+        $data=[
+            'name'=>Input::get('name'),
+            'email'=>Input::get('email'),
+            'password'=>Input::get('password'),
+            'role_id'=>Input::get('role_id'),
+            'localite_id'=>Input::get('localite_id')
+        ];
+        return $request->all();
+    }*/
 }

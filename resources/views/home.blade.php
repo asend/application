@@ -7,43 +7,36 @@
     <link rel="stylesheet" type="text/css" href="{{ URL::to('src/css/mdb.min.css') }}">
 @stop
 @section('content')
-
-    <div class="card">
-        <h2 style="text-align: center;color:teal">Tasks List</h2><hr>
-        
-            <a href="{{ route('form') }}" class="btn btn-default center-block teal">Add Task</a>
-        
+ <div class="row">  
+ <!--{{ Auth::user()['name'] }}-->
+ 
+   <div class="col-md-10 col-md-offset-1">
+    <div class="row">
+    @foreach ($regions as $row)
+      <div class="col-md-4">
+         <div class="panel panel-primary">
+      <div class="panel-heading">
+        <div class="row">
+          <div class="col-xs-3">
+            <i class="fa fa-home fa-5x"></i>
+          </div>
+          <div class="col-xs-9 text-right">
+            <div class="huge">{{ $row->members }}</div>
+            <div>{{ $row->name }}</div>
+          </div>
+        </div>
+      </div>                
+      <a href="#">
+      <div class="panel-footer">
+        <span class="pull-left">View Details</span>
+        <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+        <div class="clearfix"></div>
+      </div>
+      </a>
     </div>
-    <div class="card z-depth-3 hoverable">
-       <table class="table table-hover">
-          <thead>
-            <tr>
-              <th>#</th>
-              <th>Task Name</th>
-              <th>Status</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            <?php $i=1;?>
-            @foreach ($data as $row)
-                <tr>
-                  <td>{{$i}}</td>
-                  <td>{{$row->name}}</td>
-                  <td>{{$row->status}}</td>
-                  <td>
-                      <a href="{{ route('getEdit',$row->id) }}" class="btn btn-warning z-depth-4 hoverable">Edit</a>
-                      
-                      <form action="{{ route('deleteTask',$row->id) }}" method="POST" style="display: inline;" onsubmit="if(confirm('Delete? Are You Sure?')) {return true} else {return false};">
-                      <input type="hidden" value="{{ Session::token() }}" name="_token">
-                            <button type="submit" class="btn btn-danger">Delete</button>
-                      </form>
-                  </td>
-                </tr>
-            <?php $i=$i+1;?>
-            @endforeach
-            
-          </tbody>
-        </table>
+      </div>
+    @endforeach
     </div>
+   </div>
+ </div>
 @stop
